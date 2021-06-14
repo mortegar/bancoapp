@@ -1,0 +1,52 @@
+<h2>Transferir</h2>
+<div class="alert alert-success" role="alert" *ngIf="successfulForm">
+    Transferencia realizada correctamente.
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorForm">
+    Algo salió mal, por favor revise el formulario.
+</div>
+<form [formGroup]="transferenciaForm">
+    <div class="row">
+        <div class="form-row justify-content-start">
+            <div class="form-group col-md-6">
+                <label for="inputDestinatario">Buscar destinatario</label>
+                <select id="inputDestinatario" class="form-control" formControlName="destinatarioId" (change)="changeDestinatario()">
+                    <option *ngFor="let destinatario of destinatarios" [ngValue]="destinatario.idFirebase"> 
+                        {{ destinatario.nombre }}
+                    </option>
+                </select>
+                <span *ngIf="errorForm && !transferenciaForm?.value.destinatarioId" class="text-danger">
+                    El destinatario es requerido.
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="destinatario">
+        <div class="col-md-6">
+            <h4>Detalle del destinatario</h4>
+            <ul>
+                <li>Nombre: {{ destinatario?.nombre }}</li>
+                <li>Correo: {{ destinatario?.correo }}</li>
+                <li>Banco: {{ destinatario?.banco }}</li>
+                <li>Tipo de cuenta: {{ destinatario?.tipoCuenta }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="inputMonto">Monto</label>
+            <input type="number" class="form-control" id="inputMonto" formControlName="monto" min="1">
+            <span *ngIf="errorForm && !transferenciaForm?.value.monto" class="text-danger">
+                El monto es requerido.
+            </span>
+            <span *ngIf="errorForm && transferenciaForm?.value.monto && this.transferenciaForm.controls.monto.invalid" class="text-danger">
+                El monto debe ser mayor a 0.
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="my-5 mx-auto col-md-4">
+            <button type="submit" class="btn btn-primary btn-block" (click)="saveTransferencia()">Transferir</button>
+        </div>
+    </div>
+</form>

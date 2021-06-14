@@ -1,0 +1,21 @@
+<h2>Historial de Transferencias</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nombre destinatario</th>
+            <th scope="col">RUT</th>
+            <th scope="col">Banco</th>
+            <th scope="col">Tipo de cuenta</th>
+            <th scope="col">Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of transferencias">
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.rut }}</td>
+            <td>{{ item.banco }}</td>
+            <td>{{ item.tipoCuenta }}</td>
+            <td>{{ item.monto }}</td>
+        </tr>
+    </tbody>
+</table>

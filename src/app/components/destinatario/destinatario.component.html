@@ -1,0 +1,73 @@
+<h2>Nuevo Destinatario</h2>
+<div class="alert alert-success" role="alert" *ngIf="successfulForm">
+    Destinatario creado correctamente.
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorForm">
+    Algo salió mal, por favor revise el formulario.
+</div>
+<form [formGroup]="destinatarioForm">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="inputRut">RUT</label>
+            <input type="text" class="form-control" id="inputRut" formControlName="rut" required>
+            <span *ngIf="errorForm && !destinatarioForm?.value.rut" class="text-danger">
+                El rut es requerido.
+            </span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" formControlName="nombre">
+            <span *ngIf="errorForm && !destinatarioForm?.value.nombre" class="text-danger">
+                El nombre es requerido.
+            </span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail">Correo</label>
+            <input type="email" class="form-control" id="inputEmail" formControlName="email"
+                placeholder="micorreo@mail.com">
+            <span *ngIf="errorForm && this.destinatarioForm.controls.email.invalid" class="text-danger">
+                El correo debe tener el formato micorreo@mail.com.
+            </span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="inputTelefono">Telefono</label>
+            <input type="text" class="form-control" id="inputTelefono" formControlName="telefono"
+                placeholder="+59 9 12345678">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputBanco">Banco</label>
+            <select id="inputBanco" class="form-control" formControlName="banco">
+                <option *ngFor="let banco of bancos" [ngValue]="banco.id"> {{ banco.name }}</option>
+            </select>
+            <span *ngIf="errorForm && !destinatarioForm?.value.banco" class="text-danger">
+                El banco es requerido.
+            </span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputTipoCuenta">Tipo de cuenta</label>
+            <select id="inputTipoCuenta" class="form-control" formControlName="tipoCuenta">
+                <option value="Cuenta Corriente">Cuenta Corriente</option>
+                <option value="Cuenta Vista">Cuenta Vista</option>
+                <option value="Chequera Electrónica">Chequera Electrónica</option>
+                <option value="Cuenta de Ahorro">Cuenta de Ahorro</option>
+            </select>
+            <span *ngIf="errorForm && !destinatarioForm?.value.tipoCuenta" class="text-danger">
+                El tipo de cuenta es requerido.
+            </span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputNCuenta">N° de cuenta</label>
+            <input type="text" class="form-control" id="inputNCuenta" formControlName="numCuenta">
+            <span *ngIf="errorForm && !destinatarioForm?.value.numCuenta" class="text-danger">
+                El número de cuenta es requerido.
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="my-5 mx-auto col-md-4">
+            <button type="submit" class="btn btn-primary btn-block" (click)="saveDestinatario()">Crear</button>
+        </div>
+    </div>
+
+</form>
